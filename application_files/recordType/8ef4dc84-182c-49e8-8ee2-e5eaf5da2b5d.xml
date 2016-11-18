@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <recordType name="ST Survey" a:uuid="8ef4dc84-182c-49e8-8ee2-e5eaf5da2b5d">
+        <a:pluralName>ST Survey</a:pluralName>
+        <a:description>Questionnaire</a:description>
+        <a:urlStub>_M9hIA</a:urlStub>
+        <a:source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:DataStoreEntity" a:uuid="b4d23b88-121b-4c74-825e-19d2c03afdb8@_a-0000dce9-678b-8000-6ee0-010000010000_102087"/>
+        <a:listViewTemplateExpr>#&quot;SYSTEM_SYSRULES_listViewItem&quot;(
+  title:rf!surveyType,
+  details:&quot;Created By: &quot; &amp;rf!createdBy &amp;char(13)&amp;&quot;&quot;&amp;&quot;Created Date: &quot;&amp;rf!createdDate
+)</a:listViewTemplateExpr>
+        <a:fieldCfg name="Created By">
+            <a:description></a:description>
+            <a:sourceRef>createdBy</a:sourceRef>
+            <a:isSortable>false</a:isSortable>
+            <a:isSearchable>false</a:isSearchable>
+            <a:isFacet>true</a:isFacet>
+            <a:facetType>CUSTOM_BUCKETS_CLOSED</a:facetType>
+            <a:isExclusiveFacet>true</a:isExclusiveFacet>
+            <a:facetLabelExpr>&quot;Created By&quot;</a:facetLabelExpr>
+            <a:facetOption>
+                <a:labelExpr>&quot;Me&quot;</a:labelExpr>
+                <a:facetOperator>IN</a:facetOperator>
+                <a:lowerLimitExpr></a:lowerLimitExpr>
+                <a:upperLimitExpr></a:upperLimitExpr>
+                <a:values>loggedInUser()</a:values>
+            </a:facetOption>
+            <a:sortOrderIndex>0</a:sortOrderIndex>
+            <a:facetOrderIndex>0</a:facetOrderIndex>
+            <a:visibilityExpr>fn!true()</a:visibilityExpr>
+            <a:defaultOptionExpr></a:defaultOptionExpr>
+        </a:fieldCfg>
+        <a:detailViewCfg>
+            <a:nameExpr>=&quot;Summary&quot;</a:nameExpr>
+            <a:uiExpr>#&quot;_a-0000dd36-e022-8000-6ee0-010000010000_108366&quot;()</a:uiExpr>
+            <a:visibilityExpr>=true()</a:visibilityExpr>
+            <a:urlStub>summary</a:urlStub>
+            <a:headerExpr></a:headerExpr>
+            <a:relatedActionCfg>28d16656-b0b8-438e-8446-c5deafd05722</a:relatedActionCfg>
+        </a:detailViewCfg>
+        <a:defaultSortInfo>
+            <field>id</field>
+            <ascending>false</ascending>
+        </a:defaultSortInfo>
+        <a:relatedActionCfg>
+            <a:target xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:ProcessModel" a:uuid="0002dd40-1203-8000-6ee0-010000010000"/>
+            <a:contextExpr>{recordId:rf!id}</a:contextExpr>
+            <a:visibilityExpr>if(contains(getdistinctusers(tointeger(rf!groups)),loggedInUser()),true,false)</a:visibilityExpr>
+            <a:refId>28d16656-b0b8-438e-8446-c5deafd05722</a:refId>
+        </a:relatedActionCfg>
+        <a:isSystem>false</a:isSystem>
+        <a:dataSrcExpr></a:dataSrcExpr>
+        <a:facetsListExpr></a:facetsListExpr>
+        <a:titleExpr></a:titleExpr>
+        <a:defaultFiltersExpr></a:defaultFiltersExpr>
+        <a:layoutType>FEED</a:layoutType>
+        <a:security>16383</a:security>
+    </recordType>
+    <roleMap>
+        <role name="record_type_administrator">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000dd36-e000-8000-6edf-010000010000_1090</groupUuid>
+            </groups>
+        </role>
+        <role name="record_type_viewer">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000dd36-e000-8000-6edf-010000010000_1090</groupUuid>
+            </groups>
+        </role>
+        <role name="record_type_editor">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000dd36-e000-8000-6edf-010000010000_1090</groupUuid>
+            </groups>
+        </role>
+        <role name="record_type_auditor">
+            <users/>
+            <groups>
+                <groupUuid>_e-0000dd36-e000-8000-6edf-010000010000_1090</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+</recordTypeHaul>

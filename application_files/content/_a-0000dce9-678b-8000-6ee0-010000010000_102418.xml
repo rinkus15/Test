@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>Form_Editable_Grid</name>
+        <uuid>_a-0000dce9-678b-8000-6ee0-010000010000_102418</uuid>
+        <description>contains editable grid in form layout</description>
+        <parentUuid>_a-0000dce9-678b-8000-6ee0-010000010000_101908</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!data: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102592&quot;(),
+  local!test: {
+    ri!FormData
+  },
+  #&quot;SYSTEM_SYSRULES_formLayout&quot;(
+    label: &quot;Lorem Ipsum&quot;,
+    instructions: &quot;Lorem Ipsum&quot;,
+    firstColumnContents: {
+      #&quot;SYSTEM_SYSRULES_textField&quot;(
+      label:local!test,
+      readOnly:true
+    ),
+      #&quot;SYSTEM_SYSRULES_textField&quot;(
+        label: ri!FormData
+      ),
+      #&quot;SYSTEM_SYSRULES_imageField&quot;(
+        label:&quot;Image&quot;,
+        images:{
+          
+          #&quot;SYSTEM_SYSRULES_documentImage&quot;(
+            document:#&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102896&quot;
+          )
+        },
+        size:&quot;ICON&quot;
+      ),
+      #&quot;SYSTEM_SYSRULES_gridLayout&quot;(
+        label: &quot;Grid Layout&quot;,
+        instructions: &quot;This is a grid layout&quot;,
+        headerCells: {
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;FirstName&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;LastName&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;Options&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;Select&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;Title&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            align: &quot;RIGHT&quot;
+          )
+        },
+        coloumConfigs: {
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            weight: 6,
+            width: &quot;DISTRIBUTE&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            weight: 5,
+            width: &quot;DISTRIBUTE&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            weight: 4,
+            width: &quot;DISTRIBUTE&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            weight: 3,
+            width: &quot;DISTRIBUTE&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            weight: 2,
+            width: &quot;DISTRIBUTE&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;ICON&quot;,
+            weight: 1
+          )
+        },
+        rows: {
+          #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+            function: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102331&quot;(
+              index: _,
+              FormData: ri!FormData,
+              checkBox: ri!checkBox
+            ),
+            array: if(
+              or(
+                isnull(
+                  ri!FormData
+                ),
+                count(
+                  ri!FormData
+                ) &lt; 1
+              ),
+              {},
+              1 + enumerate(
+                count(
+                  ri!FormData
+                )
+              )
+            )
+          )
+        },
+        selectionSaveInto: {
+          
+        },
+        addRowLink: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(
+          label: &quot;Add a new row&quot;,
+          value: {
+            local!test
+          },
+          saveInto: {
+            a!save(
+              ri!FormData,
+              append(
+                ri!FormData,
+                save!value
+              )
+            )
+          }
+        )
+      ),
+    },
+    secondColumnContents: {
+     #&quot;SYSTEM_SYSRULES_textField&quot;(label:count(
+                  ri!FormData
+                ))
+    },
+    buttons: #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(
+      primaryButtons: {
+        #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+          label: &quot;Submit&quot;,
+          style: &quot;PRIMARY&quot;,
+          value: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102083&quot;,
+          saveInto: {
+            ri!btnAction
+          }
+        )
+      },
+      secondaryButtons: {
+        #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+          label: &quot;Cancel&quot;,
+          style: &quot;NORMAL&quot;,
+          value: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102084&quot;,
+          saveInto: ri!btnAction,
+          skipValidation: true
+        )
+      }
+    ),
+    validations: {}
+  )
+)</definition>
+        <namedTypedValue>
+            <name>cancel</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>FormData</name>
+            <type>
+                <name>Editable_Grid_Data_Type?list</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>btnAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>checkBox</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

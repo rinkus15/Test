@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>Editable_Grid_Expression_Rule</name>
+        <uuid>_a-0000dce9-678b-8000-6ee0-010000010000_102331</uuid>
+        <description>contains the expression rule for first editable grid.</description>
+        <parentUuid>_a-0000dce9-678b-8000-6ee0-010000010000_101908</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!cTest,
+  #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+  contents: {
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+      value: property(
+        ri!FormData[ri!index],
+        &quot;FirstName&quot;,
+        &quot;&quot;
+      ),
+      saveInto: {
+        ri!FormData[ri!index].FirstName
+      }
+    ),
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+      value: property(
+        ri!FormData[ri!index],
+        &quot;LastName&quot;,
+        &quot;&quot;
+      ),
+      saveInto: {
+        ri!FormData[ri!index].LastName
+      }
+    ),
+    #&quot;SYSTEM_SYSRULES_radioButtonField&quot;(
+      choiceLabels: {
+        &quot;Yes&quot;,
+        &quot;No&quot;
+      },
+      choiceValues: {
+        &quot;Yes&quot;,
+        &quot;No&quot;
+      },
+      value: fn!property(
+        ri!FormData[ri!index],
+        &quot;Option&quot;,
+        &quot;&quot;
+      ),
+      saveInto: {
+        ri!FormData[ri!index].Option
+      }
+    ),
+    #&quot;SYSTEM_SYSRULES_checkboxField&quot;(
+      choiceLabels: {
+        &quot;First&quot;,
+        &quot;Second&quot;,
+        &quot;Third&quot;
+      },
+      choiceValues: {
+        &quot;First&quot;,
+        &quot;Second&quot;,
+        &quot;Third&quot;
+      },
+      value:  local!cTest,
+      saveInto: {
+        local!cTest,
+        a!save(
+          ri!checkBox[ri!index],
+          save!value
+        ),
+      }
+    ),
+    #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+      placeholderLabel: &quot;----Select----&quot;,
+      choiceLabels: {
+        #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102498&quot;
+      },
+      choiceValues: {
+        #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102498&quot;
+      },
+      value: property(
+        ri!FormData[ri!index],
+        &quot;Title&quot;,
+        {}
+      ),
+      saveInto: {
+        ri!FormData[ri!index].Title
+      }
+    ),
+    #&quot;SYSTEM_SYSRULES_imageField&quot;(
+      images: {
+        #&quot;SYSTEM_SYSRULES_documentImage&quot;(
+          document: #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(
+            &quot;REMOVE&quot;
+          ),
+          caption: &quot;Remove&quot;,
+          link: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(
+            value: {
+              ri!index
+            },
+            saveInto: {
+              a!save(
+                ri!FormData,
+                remove(
+                  ri!FormData,
+                  save!value
+                )
+              )
+            }
+          )
+        )
+      },
+      size: &quot;ICON&quot;
+    )
+  }
+))</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>FormData</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>checkBox</name>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

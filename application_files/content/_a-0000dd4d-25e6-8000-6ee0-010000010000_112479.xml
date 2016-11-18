@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>ST_First_Project_Report_Main</name>
+        <uuid>_a-0000dd4d-25e6-8000-6ee0-010000010000_112479</uuid>
+        <description>main interface which contains dropdown of survey names</description>
+        <parentUuid>_a-0000dce9-678b-8000-6ee0-010000010000_102945</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!surveyId,
+  local!survey:#&quot;_a-0000dd4d-25e6-8000-6ee0-010000010000_112377&quot;(),
+  #&quot;SYSTEM_SYSRULES_formLayout&quot;(
+  label: &quot;Report&quot;,
+  instructions: &quot;Get report of each survey&quot;,
+  firstColumnContents: {
+    #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+      label: &quot;Survey List&quot;,
+      labelPosition: &quot;ABOVE&quot;,
+      placeholderLabel: &quot;--- Select a Survey ---&quot;,
+      choiceLabels: {local!survey.surveyType},
+      choiceValues: {local!survey.id},
+      value: local!surveyId,
+      saveInto: {
+        ri!surveyId,
+        local!surveyId
+        },
+      validations: {}
+    ),
+    #&quot;_a-0000dd4d-25e6-8000-6ee0-010000010000_112376&quot;(ri!surveyId)
+  }
+)
+)</definition>
+        <namedTypedValue>
+            <name>surveyId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

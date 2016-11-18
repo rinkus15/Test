@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <recordType name="ST TestProcessBack" a:uuid="3625f6d5-ba66-4860-9d3b-6f44bcc3cd6c">
+        <a:pluralName>ST TestProcessBack</a:pluralName>
+        <a:description>to check how to create process back record.</a:description>
+        <a:urlStub>Nm9KyQ</a:urlStub>
+        <a:source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:ProcessModel" a:uuid="0002dd3a-fea7-8000-6ee0-010000010000"/>
+        <a:listViewTemplateExpr>=#&quot;SYSTEM_SYSRULES_listViewItem&quot;(&#xD;
+title: &quot;Abc&quot;&#xD;
+)</a:listViewTemplateExpr>
+        <a:detailViewCfg>
+            <a:nameExpr>=&quot;Summary&quot;</a:nameExpr>
+            <a:uiExpr>#&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107183&quot;</a:uiExpr>
+            <a:visibilityExpr>=true()</a:visibilityExpr>
+            <a:urlStub>summary</a:urlStub>
+            <a:headerExpr></a:headerExpr>
+        </a:detailViewCfg>
+        <a:defaultSortInfo>
+            <field>sid</field>
+            <ascending>true</ascending>
+        </a:defaultSortInfo>
+        <a:isSystem>false</a:isSystem>
+        <a:dataSrcExpr></a:dataSrcExpr>
+        <a:facetsListExpr></a:facetsListExpr>
+        <a:titleExpr></a:titleExpr>
+        <a:defaultFiltersExpr></a:defaultFiltersExpr>
+        <a:layoutType>FEED</a:layoutType>
+        <a:security>16383</a:security>
+    </recordType>
+    <roleMap/>
+</recordTypeHaul>

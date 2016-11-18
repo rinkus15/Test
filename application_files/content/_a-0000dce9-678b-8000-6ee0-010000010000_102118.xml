@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>firstPagingGrid</name>
+        <uuid>_a-0000dce9-678b-8000-6ee0-010000010000_102118</uuid>
+        <description>It contains the paging grid.</description>
+        <parentUuid>_a-0000dce9-678b-8000-6ee0-010000010000_102117</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!data: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102153&quot;(),
+  local!gridselection: #&quot;SYSTEM_SYSRULES_gridSelection&quot;(
+    pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+      startIndex: 1,
+      batchSize: 5,
+      sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+        field: &quot;Id&quot;,
+        ascending: true
+      )
+    )
+  ),
+  with(
+    local!datasubset: todatasubset(
+      local!data,
+      local!gridselection.pagingInfo
+    ),
+    #&quot;SYSTEM_SYSRULES_formLayout&quot;(
+      label: &quot;First Paging Grid&quot;,
+      instructions: &quot;It contains the details of registration form.&quot;,
+      firstColumnContents: {
+        #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+          label: &quot;Paging grid values&quot;,
+          firstColumnContents: {
+            /*a!textField(
+              label: local!data,
+              readOnly: true
+            ),*/
+            #&quot;SYSTEM_SYSRULES_gridField&quot;(
+              label: &quot;Registration Form Information&quot;,
+              labelPosition: &quot;ABOVE&quot;,
+              totalCount: local!datasubset.totalCount,
+              columns: {
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                  label: &quot;Id&quot;,
+                  field: &quot;Id&quot;,
+                  data: index(
+                    local!datasubset.data,
+                    &quot;Id&quot;,
+                    &quot;&quot;
+                  )
+                ),
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                  label: &quot;Title&quot;,
+                  field: &quot;Title&quot;,
+                  data: index(
+                    local!datasubset.data,
+                    &quot;Title&quot;,
+                    &quot;&quot;
+                  )
+                ),
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                  label: &quot;First Name&quot;,
+                  field: &quot;firstName&quot;,
+                  data: index(
+                    local!datasubset.data,
+                    &quot;firstName&quot;,
+                    &quot;&quot;
+                  )
+                ),
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                  label: &quot;Last Name&quot;,
+                  field: &quot;lastName&quot;,
+                  data: index(
+                    local!datasubset.data,
+                    &quot;lastName&quot;,
+                    &quot;&quot;
+                  )
+                ),
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                  label: &quot;Designation&quot;,
+                  field: &quot;designation&quot;,
+                  data: index(
+                    local!datasubset.data,
+                    &quot;designation&quot;,
+                    &quot;&quot;
+                  )
+                ),
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                  label: &quot;Email&quot;,
+                  field: &quot;email&quot;,
+                  data: index(
+                    local!datasubset.data,
+                    &quot;email&quot;,
+                    &quot;&quot;
+                  )
+                )
+                
+              },
+              identifiers: index(
+                local!datasubset.data,
+                &quot;Id&quot;,
+                {}
+              ),
+              value: local!gridselection,
+              saveInto: {
+                local!gridselection,
+                a!save(
+                  ri!selectedId,
+                  index(
+                    local!gridselection,
+                    &quot;selected&quot;,
+                    &quot;&quot;
+                  )
+                )
+              },
+              selection: true,
+              validations: {
+                if(len(ri!selectedId)&gt;1,&quot;You cannot edit more than one value at a time&quot;,&quot;&quot;)
+              }
+            )
+            /*a!textField(
+              label:ri!selectedId,
+              readOnly:true
+            ),
+            a!textField(
+              label:local!gridselection,
+              readOnly:true
+            )*/
+          }
+        )
+        
+      },
+      secondColumnContents: {},
+      buttons: 
+      #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(
+        primaryButtons: {
+          
+          #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+            label: &quot;Add&quot;,
+            style: &quot;NORMAL&quot;,
+            VALUE: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102202&quot;,
+            saveInto: {ri!btnAction},
+            disabled:if(len(ri!selectedId)=0,false,true)
+          
+          ),
+         
+          #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+            label: &quot;Edit&quot;,
+            style: &quot;NORMAL&quot;,
+            value: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102203&quot;,
+            saveInto: {ri!btnAction},
+            
+            disabled: if(len(ri!selectedId)=1,false,true)
+          ),
+          #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+            label: &quot;Delete&quot;,
+            style: &quot;NORMAL&quot;,
+            value: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102287&quot;,
+            saveInto: {ri!btnAction},
+            disabled: if(len(ri!selectedId)=1,false,true)
+          )
+        },
+        secondaryButtons: {
+          #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+            label: &quot;Cancel&quot;,
+            style: &quot;NORMAL&quot;,
+            value: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102084&quot;,
+            saveInto: ri!btnAction,
+            skipValidation: true
+          )
+        }
+      ),
+      validations: {}
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>cancel</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>selectedId</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>btnAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>ST_First_Project_EditableGrid_SCQ</name>
+        <uuid>_a-0000dce9-678b-8000-6ee0-010000010000_103023</uuid>
+        <description>It contains the expression rule for single choice questions.</description>
+        <parentUuid>_a-0000dce9-678b-8000-6ee0-010000010000_103022</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load
+(
+  local!radioButton,
+  
+  #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+    contents: {
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+      value: fn!property(
+        ri!scqValues[ri!index],
+        &quot;option&quot;,
+        &quot;&quot;
+      ),
+      saveInto: {
+        a!save(ri!scqValues[ri!index].option,trim(save!value))
+      },
+      required:true
+      
+    ),
+    
+    #&quot;SYSTEM_SYSRULES_radioButtonField&quot;(
+      choiceLabels:{&quot;Yes&quot;,&quot;No&quot;},
+      choiceValues:{&quot;Yes&quot;,&quot;No&quot;},
+      
+      value: local!radioButton,
+      saveInto: {
+       local!radioButton,   
+       if(local!radioButton=&quot;Yes&quot;,a!save(ri!scqValues[ri!index].answer,ri!scqValues[ri!index].option),&quot;&quot;),
+       if(local!radioButton=&quot;No&quot;,a!save(ri!scqValues[ri!index].answer,null),&quot;&quot;),
+       if(local!radioButton=&quot;Yes&quot;,a!save(local!a,&quot;y&quot;),&quot;&quot;)
+       },
+      choiceLayout :&quot;COMPACT&quot;,
+      validations:{
+      
+      
+      
+      }
+      
+    ),
+    #&quot;SYSTEM_SYSRULES_imageField&quot;(
+      images: {
+        #&quot;SYSTEM_SYSRULES_documentImage&quot;(
+          document: #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(
+            &quot;REMOVE&quot;
+          ),
+          caption: &quot;Remove&quot;,
+          link: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(
+            value: {
+              ri!index
+            },
+            saveInto: {
+              a!save(
+                ri!scqValues,
+                remove(
+                  ri!scqValues,
+                  save!value
+                )
+              )
+            }
+          )
+        )
+      },
+      size: &quot;ICON&quot;
+    )
+    
+}
+  )
+  
+)</definition>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>scqValues</name>
+            <type>
+                <name>ST_First_Project_MCQ_DataType?list</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

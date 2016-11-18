@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:com:appian:types"
+  xmlns:tns="urn:com:appian:types" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="ST_First_Project_Answer">
+    <xsd:sequence>
+      <xsd:element name="id" nillable="true" type="xsd:int">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Id @GeneratedValue @Column(name="id", columnDefinition="int")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="sid" nillable="true" type="xsd:int">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="sid", columnDefinition="int")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="uid" nillable="true" type="xsd:int">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="uid", columnDefinition="int")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="qid" nillable="true" type="xsd:int">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="qid", columnDefinition="int")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="answer" nillable="true" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="answer", columnDefinition="nvarchar(255)")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="marks" nillable="true" type="xsd:string">
+        <xsd:annotation>
+          <xsd:appinfo source="appian.jpa">@Column(name="marks", columnDefinition="nvarchar(255)")</xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

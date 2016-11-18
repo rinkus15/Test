@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>ST_FirstForm</name>
+        <uuid>_a-0000dce9-678b-8000-6ee0-010000010000_101909</uuid>
+        <description></description>
+        <parentUuid>_a-0000dce9-678b-8000-6ee0-010000010000_101908</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(&#xD;
+local!temp:tointeger(null),&#xD;
+#&quot;SYSTEM_SYSRULES_formLayout&quot;(&#xD;
+  label: &quot;Create A New Contact&quot;,&#xD;
+  &#xD;
+  firstColumnContents: {&#xD;
+    #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(&#xD;
+      label: &quot;Contact Information&quot;,&#xD;
+      firstColumnContents: {&#xD;
+        #&quot;SYSTEM_SYSRULES_dropdownField&quot;(&#xD;
+          label: &quot;Title&quot;,&#xD;
+          labelPosition: &quot;ADJACENT&quot;,&#xD;
+          placeholderLabel: &quot;--- Select a Value ---&quot;,&#xD;
+          choiceLabels: {&quot;Option 1&quot;, &quot;Option 2&quot;},&#xD;
+          choiceValues: {&quot;Option 1&quot;, &quot;Option 2&quot;},&#xD;
+          value: fn!property(ri!data,&quot;Title&quot;,null),&#xD;
+          saveInto: {&#xD;
+            ri!data.Title&#xD;
+          },&#xD;
+          validations: {&#xD;
+            &#xD;
+          }&#xD;
+        ),&#xD;
+        &#xD;
+        #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label: &quot;First Name&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+      value:fn!property(ri!data,&quot;firstName&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.firstName,trim(save!value))&#xD;
+        },&#xD;
+      &#xD;
+      required: true,&#xD;
+      validations: {&#xD;
+        if(len(fn!property(ri!data,&quot;firstName&quot;,&quot;&quot;))&gt;255,&quot;First Name cannot be greater than 255 characters.&quot;,&quot;&quot;)&#xD;
+        &#xD;
+      &#xD;
+      }&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label: &quot;Last Name&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+      value:fn!property(ri!data,&quot;lastName&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.lastName,trim(save!value))&#xD;
+      },&#xD;
+      required: true,&#xD;
+      validations: {&#xD;
+        if(len(fn!property(ri!data,&quot;lastName&quot;,&quot;&quot;))&gt;255,&quot;Last Name cannot be greater than 255 characters.&quot;,&quot;&quot;)&#xD;
+      }&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label: &quot;Account Name&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+      value:fn!property(ri!data,&quot;accountName&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.accountName,trim(save!value))&#xD;
+      },&#xD;
+      &#xD;
+      required: true,&#xD;
+      validations: {&#xD;
+        if(len(fn!property(ri!data,&quot;accountName&quot;,&quot;&quot;))&gt;255,&quot;Account Name cannot be greater than 255 characters.&quot;,&quot;&quot;)&#xD;
+      }&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label: &quot;Designation&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+       value:fn!property(ri!data,&quot;designation&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.designation,trim(save!value))&#xD;
+      },&#xD;
+      &#xD;
+      required: true,&#xD;
+      validations: {&#xD;
+        if(len(fn!property(ri!data,&quot;designation&quot;,&quot;&quot;))&gt;255,&quot;Designation Name cannot be greater than 255 characters.&quot;,&quot;&quot;)&#xD;
+      }&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label: &quot;Department&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+       value:fn!property(ri!data,&quot;department&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.department,trim(save!value))&#xD;
+      },&#xD;
+      &#xD;
+      validations: {&#xD;
+        if(len(fn!property(ri!data,&quot;department&quot;,&quot;&quot;))&gt;255,&quot;Department Name cannot be greater than 255 characters.&quot;,&quot;&quot;)&#xD;
+      }&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label: &quot;E-mail&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+       value:fn!property(ri!data,&quot;email&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.email,trim(save!value))&#xD;
+      },&#xD;
+      &#xD;
+      required: true,&#xD;
+      validations: {&#xD;
+        if(len(fn!property(ri!data,&quot;email&quot;,&quot;&quot;))&gt;255,&quot;Email cannot be greater than 255 characters.&quot;,&quot;&quot;)&#xD;
+      }&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_dateField&quot;(&#xD;
+      label: &quot;Date of Birth&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+   &#xD;
+       value:fn!property(ri!data,&quot;dateOfBirth&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.dateOfBirth,trim(save!value))&#xD;
+      },&#xD;
+      &#xD;
+      validations: {&#xD;
+        if(fn!property(ri!data,&quot;dateOfBirth&quot;,&quot;&quot;)&gt;today(),&quot;Date of birth cannot be a future date&quot;,&quot;&quot;)&#xD;
+      }&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label: &quot;Reports To&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+      value:fn!property(ri!data,&quot;reportsTo&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.reportsTo,trim(save!value))&#xD;
+      },&#xD;
+      &#xD;
+      validations: {&#xD;
+        if(len(fn!property(ri!data,&quot;reportsTo&quot;,&quot;&quot;))&gt;255,&quot;reportsTo Name cannot be greater than 255 characters.&quot;,&quot;&quot;)&#xD;
+      }&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label: &quot;Lead Source&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+      value:fn!property(ri!data,&quot;leadSource&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.leadSource,trim(save!value))&#xD;
+      },&#xD;
+      &#xD;
+      validations: {&#xD;
+        if(len(fn!property(ri!data,&quot;leadSource&quot;,&quot;&quot;))&gt;255,&quot;Lead source cannot be greater than 255 characters.&quot;,&quot;&quot;)&#xD;
+      }&#xD;
+    )&#xD;
+        &#xD;
+    &#xD;
+      },&#xD;
+      secondColumnContents: {&#xD;
+        #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+          &#xD;
+      label: &quot;Phone&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+      value:fn!property(ri!data,&quot;phone&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        &#xD;
+        a!save(ri!data.phone,trim(save!value)),&#xD;
+        a!save(local!temp,tointeger(trim(save!value)))&#xD;
+      },&#xD;
+      &#xD;
+      &#xD;
+      validations: {&#xD;
+        #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102058&quot;(a1:local!temp,a2:fn!property(ri!data,&quot;phone&quot;,&quot;&quot;))&#xD;
+      &#xD;
+      }&#xD;
+    ),&#xD;
+    &#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label: &quot;Home Phone&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+      value:fn!property(ri!data,&quot;homePhone&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        &#xD;
+        a!save(ri!data.homePhone,trim(save!value)),&#xD;
+        a!save(local!temp,tointeger(trim(save!value)))&#xD;
+      },&#xD;
+      &#xD;
+      &#xD;
+      validations: {&#xD;
+        /*if(and(local!temp=ri!data.homePhone,len(ri!data.homePhone)=10 ),&quot;&quot;,&quot;You cannot enter characters or more than 10 digi.&quot;)&#xD;
+        &#xD;
+      */&#xD;
+      }&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label: &quot;Mobile&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+      value:fn!property(ri!data,&quot;mobile&quot;,{}),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.mobile,trim(save!value))&#xD;
+      },&#xD;
+      &#xD;
+      validations: {&#xD;
+        if(len(fn!property(ri!data,&quot;mobile&quot;,&quot;&quot;))&gt;10,&quot;Mobile cannot be greater than 10 digits.&quot;,&quot;&quot;)&#xD;
+      }&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label: &quot;Other Phone&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+      value:fn!property(ri!data,&quot;otherPhones&quot;,{}),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.otherPhones,trim(save!value))&#xD;
+      },&#xD;
+      validations: {&#xD;
+        if(len(fn!property(ri!data,&quot;otherPhones&quot;,&quot;&quot;))&gt;10,&quot;Other phone cannot be greater than 10 digits.&quot;,&quot;&quot;)&#xD;
+      }&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label: &quot;Fax&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+      value:fn!property(ri!data,&quot;fax&quot;,{}),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.fax,trim(save!value))&#xD;
+      },&#xD;
+      &#xD;
+      validations: {&#xD;
+        if(len(fn!property(ri!data,&quot;fax&quot;,&quot;&quot;))&gt;10,&quot;Fax cannot be greater than 10 digits.&quot;,&quot;&quot;)&#xD;
+      }&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label: &quot;Assistant&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+      value:fn!property(ri!data,&quot;assistant&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.assistant,trim(save!value))&#xD;
+      },&#xD;
+      &#xD;
+      validations: {&#xD;
+        if(len(fn!property(ri!data,&quot;assistant&quot;,&quot;&quot;))&gt;255,&quot;Assistant cannot be greater than 255 characters.&quot;,&quot;&quot;)&#xD;
+      }&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label: &quot;Asst. Phone No.&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+      value:fn!property(ri!data,&quot;asstPhoneNo&quot;,{}),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.asstPhoneNo,trim(save!value))&#xD;
+      },&#xD;
+      &#xD;
+      validations: {&#xD;
+        if(len(fn!property(ri!data,&quot;asstphoneNo&quot;,&quot;&quot;))&gt;10,&quot;Home phone cannot be greater than 10 digits.&quot;,&quot;&quot;)&#xD;
+      }&#xD;
+    ),&#xD;
+        #&quot;SYSTEM_SYSRULES_checkboxField&quot;(&#xD;
+          label: &quot;&quot;,&#xD;
+          labelPosition: &quot;ADJACENT&quot;,&#xD;
+          choiceLabels: {&quot;Fax Opt Out&quot;},&#xD;
+          choiceValues: {true()},&#xD;
+          value:fn!property(ri!data,&quot;faxOptOut&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        ri!data.faxOptOut&#xD;
+      },&#xD;
+          validations: {}&#xD;
+        ),&#xD;
+        #&quot;SYSTEM_SYSRULES_checkboxField&quot;(&#xD;
+          label: &quot;&quot;,&#xD;
+          labelPosition: &quot;ADJACENT&quot;,&#xD;
+          choiceLabels: {&quot;Email Opt Out&quot;},&#xD;
+          choiceValues: {true()},&#xD;
+          value:fn!property(ri!data,&quot;emailOptOut&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        ri!data.emailOptOut&#xD;
+      },&#xD;
+          validations: {}&#xD;
+        ),&#xD;
+        #&quot;SYSTEM_SYSRULES_checkboxField&quot;(&#xD;
+          label: &quot;&quot;,&#xD;
+          labelPosition: &quot;ADJACENT&quot;,&#xD;
+          choiceLabels: {&quot;Do Not Call&quot;},&#xD;
+          choiceValues: {true()},&#xD;
+          value:fn!property(ri!data,&quot;doNotCall&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        ri!data.doNotCall&#xD;
+      },&#xD;
+          validations: {}&#xD;
+        )&#xD;
+      },&#xD;
+      isCollapsible: true&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(&#xD;
+      label: &quot;Address information&quot;,&#xD;
+      firstColumnContents: {&#xD;
+        #&quot;SYSTEM_SYSRULES_paragraphField&quot;(&#xD;
+          label: &quot;Street&quot;,&#xD;
+          labelPosition: &quot;ADJACENT&quot;,&#xD;
+          value:fn!property(ri!data,&quot;street&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.street,trim(save!value))&#xD;
+      },&#xD;
+          &#xD;
+          height: &quot;MEDIUM&quot;,&#xD;
+          validations: {&#xD;
+            if(len(fn!property(ri!data,&quot;street&quot;,&quot;&quot;))&gt;255,&quot;Street cannot be greater than 255 characters.&quot;,&quot;&quot;)&#xD;
+          }&#xD;
+        )&#xD;
+      },&#xD;
+      secondColumnContents: {&#xD;
+        #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+          label: &quot;City&quot;,&#xD;
+          labelPosition: &quot;ADJACENT&quot;,&#xD;
+           value:fn!property(ri!data,&quot;city&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.city,trim(save!value))&#xD;
+      },&#xD;
+          &#xD;
+          validations: {&#xD;
+            if(len(fn!property(ri!data,&quot;city&quot;,&quot;&quot;))&gt;255,&quot;City cannot be greater than 255 characters.&quot;,&quot;&quot;)&#xD;
+          }&#xD;
+        ),&#xD;
+        #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+          label: &quot;State/Province&quot;,&#xD;
+          labelPosition: &quot;ADJACENT&quot;,&#xD;
+          value:fn!property(ri!data,&quot;state&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.state,trim(save!value))&#xD;
+      },&#xD;
+          &#xD;
+          validations: {&#xD;
+            if(len(fn!property(ri!data,&quot;state&quot;,&quot;&quot;))&gt;255,&quot;State cannot be greater than 255 characters.&quot;,&quot;&quot;)&#xD;
+          }&#xD;
+        ),&#xD;
+        #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+          label: &quot;Zip/Postal Code&quot;,&#xD;
+          labelPosition: &quot;ADJACENT&quot;,&#xD;
+           value:fn!property(ri!data,&quot;zipCode&quot;,{}),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.zipCode,trim(save!value))&#xD;
+      },&#xD;
+          validations: {&#xD;
+            if(len(fn!property(ri!data,&quot;zipCode&quot;,&quot;&quot;))&gt;10,&quot;Zip code cannot be greater than 10 digits.&quot;,&quot;&quot;)&#xD;
+          }&#xD;
+        ),&#xD;
+         #&quot;SYSTEM_SYSRULES_dropdownField&quot;(&#xD;
+          label: &quot;Country&quot;,&#xD;
+          labelPosition: &quot;ADJACENT&quot;,&#xD;
+          placeholderLabel: &quot;--- Select a Value ---&quot;,&#xD;
+          choiceLabels: {&quot;Option 1&quot;, &quot;Option 2&quot;},&#xD;
+          choiceValues: {&quot;Option 1&quot;, &quot;Option 2&quot;},&#xD;
+          value: fn!property(ri!data,&quot;country&quot;,&quot;&quot;),&#xD;
+          saveInto: {&#xD;
+            ri!data.country&#xD;
+          },&#xD;
+          validations: {}&#xD;
+        )&#xD;
+      },&#xD;
+      isCollapsible: true&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(&#xD;
+      label: &quot;Description information&quot;,&#xD;
+      firstColumnContents: {&#xD;
+        #&quot;SYSTEM_SYSRULES_paragraphField&quot;(&#xD;
+          label: &quot;Description&quot;,&#xD;
+          labelPosition: &quot;ADJACENT&quot;,&#xD;
+          value:fn!property(ri!data,&quot;description&quot;,&quot;&quot;),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!data.description,trim(save!value))&#xD;
+      },&#xD;
+          refreshAfter: &quot;UNFOCUS&quot;,&#xD;
+          height: &quot;MEDIUM&quot;,&#xD;
+          validations: {&#xD;
+            if(len(fn!property(ri!data,&quot;description&quot;,&quot;&quot;))&gt;4000,&quot;Home phone cannot be greater than 4000 characters.&quot;,&quot;&quot;)&#xD;
+          }&#xD;
+        )&#xD;
+      },&#xD;
+      secondColumnContents: {},&#xD;
+      isCollapsible: true&#xD;
+    )&#xD;
+  },&#xD;
+ buttons: #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(&#xD;
+    primaryButtons: {&#xD;
+      #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(&#xD;
+        label: &quot;Create Contact&quot;,&#xD;
+        style: &quot;PRIMARY&quot;,&#xD;
+        value:#&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102083&quot;,&#xD;
+        saveInto: {&#xD;
+          ri!btnAction&#xD;
+        }&#xD;
+      )&#xD;
+    },&#xD;
+    secondaryButtons: {&#xD;
+      #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(&#xD;
+        label: &quot;Cancel&quot;,&#xD;
+        style: &quot;NORMAL&quot;,&#xD;
+        value: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102084&quot;,&#xD;
+        saveInto: {&#xD;
+          ri!btnAction&#xD;
+        },&#xD;
+        skipValidation: true&#xD;
+      )&#xD;
+    }&#xD;
+  ),&#xD;
+  validations: {}&#xD;
+))</definition>
+        <namedTypedValue>
+            <name>data</name>
+            <type>
+                <name>FirstDataType</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>btnAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

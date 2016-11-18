@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>ST_First_Project_Editable_MCQ</name>
+        <uuid>_a-0000dce9-678b-8000-6ee0-010000010000_103390</uuid>
+        <description>contains multiple choice qustions editable grid.</description>
+        <parentUuid>_a-0000dce9-678b-8000-6ee0-010000010000_102945</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>=load(&#xD;
+  local!test : {ri!mcqValues},&#xD;
+ &#xD;
+ &#xD;
+ &#xD;
+    #&quot;SYSTEM_SYSRULES_gridLayout&quot;(&#xD;
+      label: &quot;&quot;,&#xD;
+      headerCells: {&#xD;
+        #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(&#xD;
+          label: &quot;Option&quot;&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(&#xD;
+          label: &quot;IsCorrect&quot;&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(&#xD;
+          label: &quot;&quot;&#xD;
+          )&#xD;
+      },&#xD;
+      columnConfigs: {&#xD;
+        #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(&#xD;
+          width: &quot;DISTRIBUTE&quot;,&#xD;
+          weight: 3&#xD;
+        ),&#xD;
+        #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(&#xD;
+          width: &quot;DISTRIBUTE&quot;,&#xD;
+          weight: 2&#xD;
+        ),&#xD;
+        #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(&#xD;
+          width: &quot;ICON&quot;&#xD;
+        )&#xD;
+      },&#xD;
+      rows: {&#xD;
+        #&quot;SYSTEM_SYSRULES_applyComponents&quot;(&#xD;
+            function: &#xD;
+            #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_103399&quot;(&#xD;
+              index:_,&#xD;
+              mcqValues: ri!mcqValues&#xD;
+              &#xD;
+              ),&#xD;
+              array: if(&#xD;
+              or(&#xD;
+                isnull(&#xD;
+                  ri!mcqValues&#xD;
+                ),&#xD;
+                count(&#xD;
+                  ri!mcqValues&#xD;
+                ) &lt; 1&#xD;
+              ),&#xD;
+              {},&#xD;
+              1 + enumerate(&#xD;
+                count(&#xD;
+                  ri!mcqValues&#xD;
+                )&#xD;
+              )&#xD;
+            )&#xD;
+              )&#xD;
+      },&#xD;
+      addRowLink: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(&#xD;
+          label: &quot;Add a new row&quot;,&#xD;
+          value: {&#xD;
+            local!test&#xD;
+          },&#xD;
+          saveInto: {&#xD;
+            a!save(&#xD;
+              ri!mcqValues,&#xD;
+              append(&#xD;
+                ri!mcqValues,&#xD;
+                save!value&#xD;
+              )&#xD;
+            )&#xD;
+            &#xD;
+          }&#xD;
+        ),&#xD;
+       validations: {&#xD;
+          if(isnull(ri!mcqValues),{},if(length(ri!mcqValues.answer)=0,&quot;please select options which is correct&quot;,if(length(ri!mcqValues.answer)&lt;2,&quot;Please select atleat two correct answer&quot;,{})))  &#xD;
+&#xD;
+        }&#xD;
+    )&#xD;
+    &#xD;
+      &#xD;
+  &#xD;
+)</definition>
+        <namedTypedValue>
+            <name>mcqValues</name>
+            <type>
+                <name>ST_First_Project_MCQ_DataType?list</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

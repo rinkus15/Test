@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>ST_First_Project_Editable_SCQ</name>
+        <uuid>_a-0000dce9-678b-8000-6ee0-010000010000_103081</uuid>
+        <description>It contains the editable grid for single choice question.</description>
+        <parentUuid>_a-0000dce9-678b-8000-6ee0-010000010000_102945</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition> load
+ (
+   local!scq,
+   local!a,
+   #&quot;SYSTEM_SYSRULES_gridLayout&quot;(
+    label: &quot;&quot;,
+    headerCells: {
+      #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+        label: &quot;Option&quot;
+      ),
+      #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+        label: &quot;IsCorrect&quot;
+      ),
+      #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+        label: &quot;&quot;
+      )
+    },
+    columnConfigs: {
+      #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+        width: &quot;DISTRIBUTE&quot;,
+        weight: 3
+      ),
+      #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+        width: &quot;DISTRIBUTE&quot;,
+        weight: 2
+      ),
+      #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+        width: &quot;ICON&quot;
+      )
+    },
+    rows: {
+      #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+        function: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_103023&quot;(
+          index: _,
+          scqValues: ri!scqValues
+        ),
+        array: if(
+          or(
+            isnull(
+              ri!scqValues
+            ),
+            count(
+              ri!scqValues
+            ) &lt; 1
+          ),
+          {},
+          1 + enumerate(
+            count(
+              ri!scqValues
+            )
+          )
+        )
+      )
+    },
+    addRowLink: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(
+      label: &quot;Add a new row&quot;,
+      value: {
+        local!scq
+      },
+      saveInto: {
+        a!save(
+          ri!scqValues,
+          append(
+            ri!scqValues,
+            save!value
+          )
+        )
+      }
+    ),
+       validations:{
+       if(isnull(ri!scqValues),{},if(length(ri!scqValues.answer)=0,&quot;please select options which is correct&quot;,if(length(ri!scqValues.answer)&gt;1,&quot;Please select only one correct answer&quot;,{})))  
+    }
+
+  )
+  
+)</definition>
+        <namedTypedValue>
+            <name>scqValues</name>
+            <type>
+                <name>ST_First_Project_MCQ_DataType?list</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

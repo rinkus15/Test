@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>ST_First_Project_AnswerForm_QuestionsOptions</name>
+        <uuid>_a-0000dd36-e022-8000-6ee0-010000010000_107262</uuid>
+        <description>questions with options</description>
+        <parentUuid>_a-0000dce9-678b-8000-6ee0-010000010000_103022</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load&#xD;
+(&#xD;
+  local!check,&#xD;
+  {&#xD;
+  &#xD;
+  #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+          &#xD;
+      label:concat(&quot;Question  &quot;,ri!index),&#xD;
+      &#xD;
+      value:if(isnull(ri!id),&quot;&quot;,concat(&quot;Type -  &quot;,#&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107226&quot;(ri!id[ri!index]).type[1],&quot;   Question -  &quot;,#&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107276&quot;(ri!id[ri!index]).question)),&#xD;
+      saveInto:{&#xD;
+        &#xD;
+      },&#xD;
+      readOnly:true&#xD;
+      ),&#xD;
+      &#xD;
+      &#xD;
+      if(#&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107226&quot;(ri!id[ri!index]).type=&quot;OWQ&quot;,&#xD;
+      &#xD;
+      #&quot;SYSTEM_SYSRULES_integerField&quot;(&#xD;
+        label:&quot;Answer&quot;,&#xD;
+        labelPosition:&quot;ADJACENT&quot;,&#xD;
+        value:local!check,&#xD;
+        saveInto:{&#xD;
+          local!check,&#xD;
+          a!save(ri!answerDetails[ri!index].answer,save!value),&#xD;
+          a!save(ri!answerDetails[ri!index].qid,ri!id[ri!index]),&#xD;
+          if(#&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107048&quot;(ri!answerDetails[ri!index].answer),&#xD;
+          {},&#xD;
+          if(reject(fn!isnull,&#xD;
+          #&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107226&quot;(ri!id[ri!index]).answer)=ri!answerDetails[ri!index].answer,&#xD;
+          a!save(ri!answerDetails[ri!index].marks,&#xD;
+          #&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107276&quot;(ri!id[ri!index]).marks),&#xD;
+          a!save(ri!answerDetails[ri!index].marks,0)&#xD;
+          )&#xD;
+          )&#xD;
+          &#xD;
+        }&#xD;
+        ),&#xD;
+        if(index(#&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107226&quot;(ri!id[ri!index]).type,1)=&quot;SCQ&quot;,&#xD;
+      &#xD;
+      #&quot;SYSTEM_SYSRULES_radioButtonField&quot;(&#xD;
+              label: &quot;&quot;,&#xD;
+              labelPosition: &quot;ADJACENT&quot;,&#xD;
+              choiceLabels:{&#xD;
+        &#xD;
+          if(isnull(ri!id),&quot;yes&quot;,&#xD;
+           #&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107226&quot;(ri!id[ri!index]).option)    &#xD;
+          &#xD;
+      },&#xD;
+      choiceValues:{&#xD;
+          if(isnull(ri!id),&quot;yes&quot;,&#xD;
+          #&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107226&quot;(ri!id[ri!index]).option)&#xD;
+          &#xD;
+      },&#xD;
+              value: local!check,&#xD;
+      saveInto: {&#xD;
+        local!check,&#xD;
+        a!save(ri!answerDetails[ri!index].answer,save!value),&#xD;
+      a!save(ri!answerDetails[ri!index].qid,ri!id[ri!index]),&#xD;
+       if(#&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107048&quot;(ri!answerDetails[ri!index].answer),&#xD;
+          {},&#xD;
+          if(reject(fn!isnull,&#xD;
+          #&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107226&quot;(ri!id[ri!index]).answer)=ri!answerDetails[ri!index].answer,&#xD;
+          a!save(ri!answerDetails[ri!index].marks,&#xD;
+          #&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107276&quot;(ri!id[ri!index]).marks),&#xD;
+          a!save(ri!answerDetails[ri!index].marks,0)&#xD;
+          )&#xD;
+          )&#xD;
+      },&#xD;
+              choiceLayout: &quot;STACKED&quot;,&#xD;
+              validations: {}&#xD;
+            ),&#xD;
+            #&quot;SYSTEM_SYSRULES_checkboxField&quot;(&#xD;
+      label:&quot;&quot;,&#xD;
+        labelPosition:&quot;ADJACENT&quot;,&#xD;
+      choiceLabels:{&#xD;
+        &#xD;
+          if(isnull(ri!id),&quot;yes&quot;,&#xD;
+           #&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107226&quot;(ri!id[ri!index]).option)    &#xD;
+          &#xD;
+      },&#xD;
+      choiceValues:{&#xD;
+          if(isnull(ri!id),&quot;yes&quot;,&#xD;
+          #&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107226&quot;(ri!id[ri!index]).option)&#xD;
+          &#xD;
+      },&#xD;
+      value: local!check,&#xD;
+      saveInto: {&#xD;
+        local!check,&#xD;
+        a!save(ri!answerDetails[ri!index].answer,save!value),&#xD;
+      a!save(ri!answerDetails[ri!index].qid,ri!id[ri!index]),&#xD;
+       if(#&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107048&quot;(ri!answerDetails[ri!index].answer),&#xD;
+          {},&#xD;
+          if(reject(fn!isnull,&#xD;
+          #&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107226&quot;(ri!id[ri!index]).answer)=ri!answerDetails[ri!index].answer,&#xD;
+          a!save(ri!answerDetails[ri!index].marks,&#xD;
+          #&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107276&quot;(ri!id[ri!index]).marks),&#xD;
+          a!save(ri!answerDetails[ri!index].marks,0)&#xD;
+          )&#xD;
+          )&#xD;
+      }&#xD;
+      )&#xD;
+      )&#xD;
+      )&#xD;
+      &#xD;
+}&#xD;
+)</definition>
+        <namedTypedValue>
+            <name>id</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>answerDetails</name>
+            <type>
+                <name>ST_First_Project_Answer?list</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

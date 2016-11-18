@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>First_Editable_Grid</name>
+        <uuid>_a-0000dce9-678b-8000-6ee0-010000010000_102293</uuid>
+        <description>Contains the first editable grid.</description>
+        <parentUuid>_a-0000dce9-678b-8000-6ee0-010000010000_102292</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>= load(
+  local!data: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102153&quot;(),
+  #&quot;SYSTEM_SYSRULES_gridLayout&quot;(
+    label: &quot;Grid Layout&quot;,
+    instructions: &quot;This is a grid layout&quot;,
+    headerCells: {
+      #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+        label: &quot;Title&quot;
+      ),
+      #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+        label: &quot;First_Name&quot;,
+        align: &quot;RIGHT&quot;
+      ),
+      #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+        label: &quot;Last_Name&quot;,
+        align: &quot;RIGHT&quot;
+      ),
+      #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+        label: &quot;Designation&quot;,
+        align: &quot;RIGHT&quot;
+      )
+    },
+    coloumConfigs: {
+      #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+        width: 1,
+        weight: &quot;DISTRIBUTE&quot;
+      ),
+      #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+        width: 1,
+        weight: &quot;DISTRIBUTE&quot;
+      ),
+      #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+        width: 1,
+        weight: &quot;DISTRIBUTE&quot;
+      ),
+      #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+        width: 1,
+        weight: &quot;DISTRIBUTE&quot;
+      )
+    },
+    rows: {
+      #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+        function: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102331&quot;(
+          index: _,
+          FolderContents: local!data
+        ),
+        array: if(
+          or(
+            isnull(
+              local!data
+            ),
+            count(
+              local!data
+            ) &lt; 1
+          ),
+          {},
+          1 + enumerate(
+            count(
+              local!data
+            )
+          )
+        )
+      )
+    }
+  )
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+</contentHaul>

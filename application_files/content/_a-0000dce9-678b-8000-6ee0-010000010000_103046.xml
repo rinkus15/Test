@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>ST_First_Project_Add_Question</name>
+        <uuid>_a-0000dce9-678b-8000-6ee0-010000010000_103046</uuid>
+        <description>Enter the new question</description>
+        <parentUuid>_a-0000dce9-678b-8000-6ee0-010000010000_102945</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(&#xD;
+  &#xD;
+  local!op:#&quot;_a-0000dce9-678b-8000-6ee0-010000010000_106291&quot;(),&#xD;
+  local!SelectedId,&#xD;
+  /*local!sur:rule!ST_First_Project_SurveyMain(),*/&#xD;
+   local!marks,&#xD;
+  local!opt,&#xD;
+  local!ques,&#xD;
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(&#xD;
+      startIndex: 1,&#xD;
+      batchSize: 5,&#xD;
+      sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(&#xD;
+        field: &quot;Id&quot;,&#xD;
+        ascending: true&#xD;
+      )&#xD;
+      ),&#xD;
+      with(&#xD;
+        local!que:if(isnull(ri!surveyDetails.id),{},#&quot;_a-0000dce9-678b-8000-6ee0-010000010000_104614&quot;(ri!surveyDetails.id)),&#xD;
+    local!datasubset: todatasubset(&#xD;
+      local!que,&#xD;
+      local!pagingInfo&#xD;
+    ), &#xD;
+  #&quot;SYSTEM_SYSRULES_formLayout&quot;(&#xD;
+    label: &quot;SURVEY&quot;,&#xD;
+    instructions: &quot;Questionnaire for a survey form.&quot;,&#xD;
+    firstColumnContents: {&#xD;
+     /* a!textField(label:local!sur,readOnly:true),&#xD;
+      a!textField(label: local!que,readOnly:true),&#xD;
+      a!textField(label: local!op,readOnly:true),&#xD;
+     */ &#xD;
+     if(ri!questionAction=&quot;&quot;,&#xD;
+     #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(&#xD;
+        &#xD;
+      label: &quot;Survey Details&quot;,&#xD;
+      firstColumnContents: {&#xD;
+        #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label: &quot;Survey Type&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+      value:&#xD;
+      {&#xD;
+        property(ri!surveyDetails,&quot;surveyType&quot;,&quot;&quot;)&#xD;
+      },&#xD;
+      saveInto: {&#xD;
+        a!save(ri!surveyDetails.surveyType,trim(save!value))&#xD;
+      },&#xD;
+      refreshAfter: &quot;UNFOCUS&quot;,&#xD;
+      required:true,&#xD;
+      validations: {}&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      label: &quot;Description&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+      value:&#xD;
+      {&#xD;
+        property(ri!surveyDetails,&quot;description&quot;,&quot;&quot;)&#xD;
+      },&#xD;
+      saveInto: {&#xD;
+        a!save(ri!surveyDetails.description,trim(save!value))&#xD;
+      },&#xD;
+      refreshAfter: &quot;UNFOCUS&quot;,&#xD;
+      required:true,&#xD;
+      validations: {}&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_dateField&quot;(&#xD;
+      label: &quot;Assigned Date&quot;,&#xD;
+      labelPosition: &quot;ADJACENT&quot;,&#xD;
+      value:&#xD;
+      {&#xD;
+        property(ri!surveyDetails,&quot;date&quot;,&quot;&quot;)&#xD;
+      },&#xD;
+      saveInto: {&#xD;
+        ri!surveyDetails.date&#xD;
+      },&#xD;
+      required:true,&#xD;
+      validations: {&#xD;
+        if(ri!surveyDetails.date&lt;today(),&quot;Invalid date.&quot;,{})&#xD;
+      }&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_pickerFieldGroups&quot;(&#xD;
+      label:&quot;Groups&quot;,&#xD;
+      labelPosition:&quot;ADJACENT&quot;,&#xD;
+      groupFilter:#&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107161&quot;,&#xD;
+      value:&#xD;
+      {&#xD;
+        property(ri!surveyDetails,&quot;groups&quot;,&quot;&quot;)&#xD;
+      },&#xD;
+      saveInto: {&#xD;
+        ri!surveyDetails.groups&#xD;
+      },&#xD;
+      required:true&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(&#xD;
+          primaryButtons:#&quot;SYSTEM_SYSRULES_ButtonWidget&quot;(&#xD;
+            label:&quot;Next&quot;,&#xD;
+            style:&quot;NORMAL&quot;,&#xD;
+            value:&quot;Next&quot;,&#xD;
+            saveInto:ri!questionAction,&#xD;
+           validate:{&#xD;
+                  if(&#xD;
+                    or(&#xD;
+                      isnull(&#xD;
+                        index(&#xD;
+                          ri!surveyDetails,&#xD;
+                          &quot;surveyType&quot;,&#xD;
+                          {}&#xD;
+                        )&#xD;
+                      ),&#xD;
+                      isnull(&#xD;
+                        index(&#xD;
+                          ri!surveyDetails,&#xD;
+                          &quot;description&quot;,&#xD;
+                          {}&#xD;
+                        )&#xD;
+                      ),&#xD;
+                      isnull(&#xD;
+                        index(&#xD;
+                          ri!surveyDetails,&#xD;
+                          &quot;date&quot;,&#xD;
+                          {}&#xD;
+                        )&#xD;
+                      ),&#xD;
+                      isnull(&#xD;
+                        index(&#xD;
+                          ri!surveyDetails,&#xD;
+                          &quot;groups&quot;,&#xD;
+                          {}&#xD;
+                        )&#xD;
+                      )&#xD;
+                    ),&#xD;
+                    true,&#xD;
+                    false&#xD;
+                  ),&#xD;
+                }&#xD;
+          )&#xD;
+        )&#xD;
+            }&#xD;
+            ),&#xD;
+            {}),&#xD;
+         if(ri!questionAction=&quot;Next&quot;, &#xD;
+      {&#xD;
+        #&quot;SYSTEM_SYSRULES_gridField&quot;(&#xD;
+        label: &quot;Questions&quot;,&#xD;
+        labelPosition: &quot;ABOVE&quot;,&#xD;
+        totalCount: local!datasubset.totalCount,&#xD;
+        columns: {&#xD;
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(&#xD;
+                  label: &quot;Id&quot;,&#xD;
+                  field: &quot;Id&quot;,&#xD;
+                  data: if(#&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107048&quot;(local!datasubset.data),{},1+enumerate(count(local!datasubset.data)))&#xD;
+                ),&#xD;
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(&#xD;
+                  label: &quot;Question&quot;,&#xD;
+                  field: &quot;Question&quot;,&#xD;
+                  data: index(local!datasubset.data,&quot;question&quot;,{})&#xD;
+                ),&#xD;
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(&#xD;
+                  label: &quot;Type&quot;,&#xD;
+                  field: &quot;Type&quot;,&#xD;
+                  data:apply(&#xD;
+                    #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_106602&quot;(_),&#xD;
+                    local!datasubset.data&#xD;
+                  )&#xD;
+                  ),&#xD;
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(&#xD;
+                  label: &quot;Marks&quot;,&#xD;
+                  field: &quot;Marks&quot;,&#xD;
+                  data: index(local!datasubset.data,&quot;marks&quot;,{})&#xD;
+                ),&#xD;
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(&#xD;
+                  label: &quot;Options&quot;,&#xD;
+                  field: &quot;Options&quot;,&#xD;
+                  data: apply(&#xD;
+                    #&quot;f9bde2aa-f0b7-4430-a994-00d02f730a43&quot;(_),&#xD;
+                    local!datasubset.data&#xD;
+                  )&#xD;
+                ),&#xD;
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(&#xD;
+                  label: &quot;Answer&quot;,&#xD;
+                  field: &quot;Answer&quot;,&#xD;
+                  data: apply(&#xD;
+                    #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_106573&quot;(_),&#xD;
+                    local!datasubset.data&#xD;
+                  )&#xD;
+                ),&#xD;
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(&#xD;
+          label: &quot;&quot;,&#xD;
+          data:repeat(count(local!datasubset.data),&quot;Edit&quot;), &#xD;
+            links:#&quot;SYSTEM_SYSRULES_applyComponents&quot;(&#xD;
+            #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(label:&quot;Edit&quot;,value:_,&#xD;
+            saveInto:{local!SelectedId,&#xD;
+            a!save(ri!options,#&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107226&quot;(local!SelectedId)),&#xD;
+            a!save(ri!questionMarks,#&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107276&quot;(local!SelectedId)),&#xD;
+            if(ri!options.type[1]=&quot;SCQ&quot;,{a!save(ri!questionType,&quot;SCQ&quot;)},&#xD;
+            {if(ri!options.type[1]=&quot;MCQ&quot;,{a!save(ri!questionType,&quot;MCQ&quot;)},&#xD;
+            {if(ri!options.type=&quot;OWQ&quot;,{a!save(ri!questionType,&quot;OWQ&quot;)},{a!save(ri!questionType,&quot;&quot;)})}&#xD;
+            )})&#xD;
+            &#xD;
+            }),&#xD;
+            index(local!datasubset.data,&quot;id&quot;,{}))&#xD;
+        &#xD;
+        )&#xD;
+        },&#xD;
+        &#xD;
+        value: local!pagingInfo,&#xD;
+        saveInto: {&#xD;
+          local!pagingInfo&#xD;
+        },&#xD;
+        validations: {}&#xD;
+      ),&#xD;
+      &#xD;
+      #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(&#xD;
+        label: &quot;Questionnaire Type&quot;,&#xD;
+        firstColumnContents: {&#xD;
+          #&quot;SYSTEM_SYSRULES_radioButtonField&quot;(&#xD;
+            label: &quot;Type&quot;,&#xD;
+            labelPosition: &quot;ADJACENT&quot;,&#xD;
+            instructions: &quot;Choose what type of question you want to add&quot;,&#xD;
+            choiceLabels: {&#xD;
+              &quot;Single Choice Question&quot;,&#xD;
+              &quot;Multiple Choice Question&quot;,&#xD;
+              &quot;One Word Question&quot;&#xD;
+            },&#xD;
+            choiceValues: {&#xD;
+              &quot;SCQ&quot;,&#xD;
+              &quot;MCQ&quot;,&#xD;
+              &quot;OWQ&quot;&#xD;
+            },&#xD;
+            value: ri!questionType,&#xD;
+            saveInto: {&#xD;
+              &#xD;
+              ri!questionType,&#xD;
+              a!save(ri!options,null),&#xD;
+              &#xD;
+              a!save(ri!questionMarks,null)&#xD;
+              &#xD;
+            },&#xD;
+            choiceLayout: &quot;COMPACT&quot;,&#xD;
+            validations: {}&#xD;
+          )&#xD;
+        }&#xD;
+      ),&#xD;
+      #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(&#xD;
+        label: &quot;Questionnaire&quot;,&#xD;
+        firstColumnContents: {&#xD;
+          #&quot;SYSTEM_SYSRULES_paragraphField&quot;(&#xD;
+            label: &quot;Enter new question here...&quot;,&#xD;
+            labelPosition: &quot;ABOVE&quot;,&#xD;
+            value:{&#xD;
+              property(ri!questionMarks,&quot;question&quot;,&quot;&quot;)&#xD;
+            },&#xD;
+            saveInto: {&#xD;
+              a!save(local!ques,trim(save!value)),&#xD;
+              a!save(ri!questionMarks.question,trim(save!value))&#xD;
+            },&#xD;
+            refreshAfter: &quot;UNFOCUS&quot;,&#xD;
+            required: if(isnull(index(ri!questionMarks,&quot;marks&quot;,&quot;&quot;)),false,true),&#xD;
+            disabled:if(ri!questionType=null,true,false),&#xD;
+            height: &quot;MEDIUM&quot;,&#xD;
+            validations: {}&#xD;
+          )&#xD;
+        },&#xD;
+        secondColumnContents: {&#xD;
+          &#xD;
+          #&quot;SYSTEM_SYSRULES_integerField&quot;(&#xD;
+            label: &quot;Marks&quot;,&#xD;
+            labelPosition: &quot;ABOVE&quot;,&#xD;
+            value:{&#xD;
+              property(ri!questionMarks,&quot;marks&quot;,&quot;&quot;)&#xD;
+            },&#xD;
+            saveInto: {&#xD;
+              local!marks,&#xD;
+              a!save(ri!questionMarks.marks,trim(save!value))&#xD;
+            },&#xD;
+            refreshAfter: &quot;UNFOCUS&quot;,&#xD;
+            required:if(isnull(index(ri!questionMarks,&quot;question&quot;,&quot;&quot;)),false,true),&#xD;
+            disabled:if(ri!questionType=null,true,false),&#xD;
+            &#xD;
+            /*required: true,*/&#xD;
+            validations: {}&#xD;
+          ),&#xD;
+          if(ri!questionType=&quot;SCQ&quot;,&#xD;
+         #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_103081&quot;(&#xD;
+            ri!options&#xD;
+          ),&#xD;
+          if(ri!questionType=&quot;MCQ&quot;,&#xD;
+          #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_103390&quot;(&#xD;
+            ri!options&#xD;
+          ),&#xD;
+          if(ri!questionType=&quot;OWQ&quot;,&#xD;
+          #&quot;SYSTEM_SYSRULES_integerField&quot;(&#xD;
+            label: &quot;Answer&quot;,&#xD;
+            labelPosition: &quot;ABOVE&quot;,&#xD;
+            value: property(ri!options,&quot;answer&quot;,&quot;&quot;),&#xD;
+            saveInto: {&#xD;
+              a!save(ri!options.answer,trim(save!value))&#xD;
+              &#xD;
+            },&#xD;
+            required:if(and(isnull(index(ri!questionMarks,&quot;question&quot;,&quot;&quot;)),isnull(index(ri!questionMarks,&quot;marks&quot;,&quot;&quot;))),false,true)&#xD;
+            &#xD;
+          ),&#xD;
+          {}))),&#xD;
+          #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(&#xD;
+          #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(&#xD;
+          label: &quot;Add&quot;,&#xD;
+          style: &quot;NORMAL&quot;,&#xD;
+          confirmMessage:&quot;Do you want to add ?&quot;,&#xD;
+          value: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102202&quot;,&#xD;
+          saveInto: {&#xD;
+            ri!questionAction&#xD;
+          },&#xD;
+          disabled:if(ri!questionType=&quot;OWQ&quot;,(if(or(isnull(index(ri!questionMarks,&quot;question&quot;,&quot;&quot;)),isnull(index(ri!questionMarks,&quot;marks&quot;,&quot;&quot;)),isnull(index(ri!options,&quot;answer&quot;,&quot;&quot;))),true,false)),(if(or(isnull(index(ri!questionMarks,&quot;question&quot;,&quot;&quot;)),isnull(index(ri!questionMarks,&quot;marks&quot;,&quot;&quot;)),count(ri!options)&lt;2),true,false)))&#xD;
+          ))&#xD;
+        }&#xD;
+      )&#xD;
+      },{})&#xD;
+    },&#xD;
+    secondColumnContents: {},&#xD;
+    buttons: #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(&#xD;
+      primaryButtons: {&#xD;
+        #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(&#xD;
+          label: &quot;Submit&quot;,&#xD;
+          style: &quot;PRIMARY&quot;,&#xD;
+          confirmMessage:if(isnull(local!datasubset.data),&quot;You have not entered any question so your data has not been saved. To cancel click 'No'&quot;,&quot;&quot;),&#xD;
+          value: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102083&quot;,&#xD;
+          saveInto: {&#xD;
+            ri!questionAction&#xD;
+          },&#xD;
+          disabled:if(and(isnull(local!ques),isnull(local!marks)),false,true)&#xD;
+          &#xD;
+          &#xD;
+        )&#xD;
+      },&#xD;
+      secondaryButtons: {&#xD;
+        #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(&#xD;
+          label: &quot;Cancel&quot;,&#xD;
+          style: &quot;NORMAL&quot;,&#xD;
+          value: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102084&quot;,&#xD;
+          saveInto: ri!questionAction,&#xD;
+          skipValidation: true&#xD;
+        )&#xD;
+        &#xD;
+      }&#xD;
+    ),&#xD;
+    validations: {&#xD;
+     /**/&#xD;
+    }&#xD;
+  )&#xD;
+))&#xD;
+</definition>
+        <namedTypedValue>
+            <name>questionAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>questionMarks</name>
+            <type>
+                <name>ST_First_Project_Question_CDT?list</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>questionType</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>options</name>
+            <type>
+                <name>ST_First_Project_MCQ_DataType?list</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>surveyDetails</name>
+            <type>
+                <name>ST_First_Project_SurveyDetails</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>questionAction</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>questionMarks</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>questionType</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>options</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:ST_First_Project_SurveyDetails^5"/>
+                    <a:nameRef>surveyDetails</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+</contentHaul>

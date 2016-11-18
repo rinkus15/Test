@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>ST_Questionnaire_First_Main</name>
+        <uuid>_a-0000dce9-678b-8000-6ee0-010000010000_102951</uuid>
+        <description>it contains options for selecting type of questions</description>
+        <parentUuid>_a-0000dce9-678b-8000-6ee0-010000010000_102945</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  #&quot;SYSTEM_SYSRULES_formLayout&quot;(
+  label: &quot;SETUP SURVEY&quot;,
+  instructions: &quot;Questionnaire for a survey form.&quot;,
+  firstColumnContents: {
+    #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+      label: &quot;Survey Details&quot;,
+      firstColumnContents: {
+        #&quot;SYSTEM_SYSRULES_textField&quot;(
+      label: &quot;Survey Type&quot;,
+      labelPosition: &quot;ADJACENT&quot;,
+      value:
+      {
+        property(ri!surveyDetails,&quot;surveyType&quot;,&quot;&quot;)
+      },
+      saveInto: {
+        ri!surveyDetails.surveyType
+      },
+      refreshAfter: &quot;UNFOCUS&quot;,
+      required:false,
+      validations: {}
+    ),
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+      label: &quot;Description&quot;,
+      labelPosition: &quot;ADJACENT&quot;,
+      value:
+      {
+        property(ri!surveyDetails,&quot;description&quot;,&quot;&quot;)
+      },
+      saveInto: {
+        ri!surveyDetails.description
+      },
+      refreshAfter: &quot;UNFOCUS&quot;,
+      required:false,
+      validations: {}
+    ),
+    #&quot;SYSTEM_SYSRULES_dateField&quot;(
+      label: &quot;Assigned Date&quot;,
+      labelPosition: &quot;ADJACENT&quot;,
+      value:
+      {
+        property(ri!surveyDetails,&quot;date&quot;,&quot;&quot;)
+      },
+      saveInto: {
+        ri!surveyDetails.date
+      },
+      required:false,
+      validations: {}
+    ),
+    #&quot;SYSTEM_SYSRULES_pickerFieldGroups&quot;(
+      label:&quot;Groups&quot;,
+      labelPosition:&quot;ADJACENT&quot;,
+      groupFilter:&quot;&quot;,
+      value:
+      {
+        property(ri!surveyDetails,&quot;groups&quot;,&quot;&quot;)
+      },
+      saveInto: {
+        ri!surveyDetails.groups
+      },
+      required:false
+    )
+    }
+    )
+  },
+  buttons: #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(
+    primaryButtons: {
+      #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+        label: &quot;Submit&quot;,
+        style: &quot;PRIMARY&quot;,
+        value: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102083&quot;,
+        saveInto: {
+          ri!surveyAction
+        }
+      )
+    },
+    secondaryButtons: {
+      #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+        label: &quot;Cancel&quot;,
+        style: &quot;NORMAL&quot;,
+       value: #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_102084&quot;,
+        saveInto: ri!surveyAction,
+        skipValidation: true
+      )
+    }
+  ),
+  validations: {}
+)
+)</definition>
+        <namedTypedValue>
+            <name>surveyDetails</name>
+            <type>
+                <name>ST_First_Project_SurveyDetails</name>
+                <namespace>urn:com:appian:types</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>surveyAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

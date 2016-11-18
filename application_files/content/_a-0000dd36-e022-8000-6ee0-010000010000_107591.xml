@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>ST_First_Project_Answer_CheckBox</name>
+        <uuid>_a-0000dd36-e022-8000-6ee0-010000010000_107591</uuid>
+        <description></description>
+        <parentUuid>_a-0000dce9-678b-8000-6ee0-010000010000_103022</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#&quot;SYSTEM_SYSRULES_checkboxField&quot;(&#xD;
+      &#xD;
+      choiceLabels:{&#xD;
+          if(isnull(ri!id),{},#&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107610&quot;(ri!id).option)&#xD;
+      },&#xD;
+      choiceValues:{&#xD;
+          if(isnull(ri!id),{},#&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107610&quot;(ri!id).option)&#xD;
+      }&#xD;
+      )&#xD;
+      </definition>
+        <namedTypedValue>
+            <name>id</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

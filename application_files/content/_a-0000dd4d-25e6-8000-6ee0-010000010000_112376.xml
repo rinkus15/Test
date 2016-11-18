@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>ST_First_Project_Report</name>
+        <uuid>_a-0000dd4d-25e6-8000-6ee0-010000010000_112376</uuid>
+        <description>report of survey</description>
+        <parentUuid>_a-0000dce9-678b-8000-6ee0-010000010000_102945</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!survey:#&quot;_a-0000dd4d-25e6-8000-6ee0-010000010000_112377&quot;(),
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+    startIndex: 1,
+    batchSize: -1,
+    sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+      field: &quot;sId&quot;,
+      ascending: true
+    )
+  ),
+ 
+  with(
+    
+    local!datasubset: #&quot;SYSTEM_SYSRULES_queryEntity&quot;(
+      entity: #&quot;_a-0000dd4d-25e6-8000-6ee0-010000010000_112459&quot;,
+      query: #&quot;SYSTEM_SYSRULES_query&quot;(
+        aggregation: #&quot;SYSTEM_SYSRULES_queryAggregation&quot;(aggregationColumns: {
+          #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(field: &quot;sId&quot;, isGrouping: true),
+          #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(field: &quot;firstName&quot;, isGrouping: true),
+          #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(field: &quot;countUserID&quot;, isGrouping: true),
+          #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(field: &quot;averageTotalMarks&quot;, isGrouping: true),
+          #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(field: &quot;averageObtainedMarks&quot;, isGrouping: true),
+        }),
+        filter: #&quot;SYSTEM_SYSRULES_queryFilter&quot;(
+          field:&quot;sId&quot;,
+          operator:&quot;=&quot;,
+          value:if(isnull(ri!surveyId),0,ri!surveyId)
+        ),
+        pagingInfo: local!pagingInfo
+      )
+    ),
+    
+    #&quot;SYSTEM_SYSRULES_columnChartField&quot;(
+      categories: {
+        index(local!datasubset.data, &quot;firstName&quot;, null)
+      },
+      series: {
+        #&quot;SYSTEM_SYSRULES_chartSeries&quot;(
+          label: &quot;countUserID&quot;,
+          data: index(local!datasubset.data, &quot;averageObtainedMarks&quot;, null)
+        )
+      }
+    )
+  )
+)
+</definition>
+        <namedTypedValue>
+            <name>surveyId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

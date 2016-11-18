@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <recordType name="dgrhtgkyhu" a:uuid="616189a3-f76c-4159-8092-24ef07c1a549">
+        <a:pluralName>dfhtgkhuij</a:pluralName>
+        <a:description></a:description>
+        <a:urlStub>KHHZrQ</a:urlStub>
+        <a:listViewTemplateExpr></a:listViewTemplateExpr>
+        <a:detailViewCfg>
+            <a:nameExpr>=&quot;Summary&quot;</a:nameExpr>
+            <a:uiExpr></a:uiExpr>
+            <a:visibilityExpr>=true()</a:visibilityExpr>
+            <a:urlStub>summary</a:urlStub>
+            <a:headerExpr></a:headerExpr>
+        </a:detailViewCfg>
+        <a:isSystem>false</a:isSystem>
+        <a:dataSrcExpr></a:dataSrcExpr>
+        <a:facetsListExpr></a:facetsListExpr>
+        <a:defaultFiltersExpr></a:defaultFiltersExpr>
+        <a:layoutType>FEED</a:layoutType>
+        <a:security>16383</a:security>
+    </recordType>
+    <roleMap/>
+</recordTypeHaul>

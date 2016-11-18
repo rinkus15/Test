@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>ST_First_Project_Record_Interface</name>
+        <uuid>_a-0000dd36-e022-8000-6ee0-010000010000_108366</uuid>
+        <description>contains the interface for showing the record</description>
+        <parentUuid>_a-0000dce9-678b-8000-6ee0-010000010000_102945</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load
+(
+  local!op:#&quot;_a-0000dce9-678b-8000-6ee0-010000010000_106291&quot;(),
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+      startIndex: 1,
+      batchSize: 5,
+      sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+        field: &quot;Sequence&quot;,
+        ascending: true
+      )
+      )
+  ,
+  local!pagingInfo1: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+      startIndex: 1,
+      batchSize: 5,
+      sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+        field: &quot;Sequence&quot;,
+        ascending: true
+      )
+      )
+  ,
+ local!pagingInfo2: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+      startIndex: 1,
+      batchSize: 5,
+      sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+        field: &quot;Sequence&quot;,
+        ascending: true
+      )
+      )
+  ,
+       local!que:if(isnull(rf!id),{},#&quot;_a-0000dce9-678b-8000-6ee0-010000010000_104614&quot;(rf!id)),
+       local!userResult:#&quot;_a-0000dd45-c13d-8000-6ee0-010000010000_109228&quot;(rf!id),
+       local!userDetails:#&quot;_a-0000dd45-c13d-8000-6ee0-010000010000_109267&quot;({local!userResult.uid}),
+  with(
+    
+
+    local!datasubset: todatasubset(
+      local!que,
+      local!pagingInfo
+    ),
+    
+  local!datasubset1: todatasubset(
+      local!userResult,
+      local!pagingInfo1
+    ),
+local!datasubset2: todatasubset(
+      local!userDetails,
+      local!pagingInfo2
+    ),
+#&quot;SYSTEM_SYSRULES_dashboardLayout&quot;(
+  firstColumnContents: {
+    #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+      label: &quot;&quot;,
+      firstColumnContents: {
+        #&quot;SYSTEM_SYSRULES_textField&quot;(
+          label: &quot;Type: &quot;,
+          labelPosition: &quot;ADJACENT&quot;,
+          value: rf!surveyType,
+          readOnly: true
+        ),
+        if(isnull(rf!createdBy),{},
+        {#&quot;SYSTEM_SYSRULES_linkField&quot;(
+          label:&quot;Created By&quot;,
+          labelPosition:&quot;ADJACENT&quot;,
+          links: #&quot;SYSTEM_SYSRULES_userRecordLink&quot;(
+            label:user(rf!createdBy,&quot;firstName&quot;)&amp;&quot; &quot;&amp;user(rf!createdBy,&quot;lastName&quot;),
+            user:rf!createdBy
+            )
+        ),
+        #&quot;SYSTEM_SYSRULES_textField&quot;(
+          label: &quot;Created Date&quot;,
+          labelPosition: &quot;ADJACENT&quot;,
+          value: rf!createdDate,
+          readOnly: true
+        )}
+        )
+      },
+        secondColumnContents:{
+        
+        
+        #&quot;SYSTEM_SYSRULES_textField&quot;(
+          label: &quot;Assigned Date: &quot;,
+          labelPosition: &quot;ADJACENT&quot;,
+          value: rf!date,
+          readOnly: true
+        ),
+        #&quot;SYSTEM_SYSRULES_textField&quot;(
+          label: &quot;Assigned Groups: &quot;,
+          labelPosition: &quot;ADJACENT&quot;,
+          value: #&quot;_a-0000dd36-e022-8000-6ee0-010000010000_108485&quot;(),
+          readOnly: true
+        )
+        }
+    ),
+    #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+      firstColumnContents: {
+        #&quot;SYSTEM_SYSRULES_textField&quot;(
+          label: &quot;Description:&quot;,
+          labelPosition: &quot;ADJACENT&quot;,
+          value: rf!description,
+          readOnly: true
+        )
+      }
+    ),
+     #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+      label: &quot;Questions&quot;,
+      firstColumnContents: {  
+         #&quot;SYSTEM_SYSRULES_gridField&quot;(
+      
+  labelPosition: &quot;ABOVE&quot;,
+  totalCount: local!datasubset.totalCount,
+      columns: {
+
+        #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+          label:&quot;Sequence&quot;,
+            field: &quot;Sequence&quot;,
+            data: if(#&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107048&quot;(local!datasubset.data),
+            {},1+enumerate(count(local!datasubset.data))),
+            alignment: &quot;LEFT&quot;
+        ),
+        #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+          label:&quot;Question&quot;,
+        field: &quot;Question&quot;,
+        data:index(local!datasubset.data,&quot;question&quot;,{})),
+        
+        #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+          label:&quot;Type&quot;,
+           field: &quot;Type&quot;,
+          data: apply(
+                    #&quot;_a-0000dce9-678b-8000-6ee0-010000010000_106602&quot;(_),
+                    local!datasubset.data)
+        ),
+        #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+          label:&quot;Marks&quot;,
+          field: &quot;Marks&quot;,
+          data: index(local!datasubset.data,&quot;marks&quot;,{})
+        )
+      },
+  value: local!pagingInfo,
+  saveInto:local!pagingInfo,
+  validations: {}
+)
+
+      },
+      secondColumnContents: {}
+    ),
+    #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+      label: &quot;Results&quot;,
+      firstColumnContents: {  
+          if(local!datasubset1.totalCount=0,{}, 
+#&quot;SYSTEM_SYSRULES_gridField&quot;(
+      
+  labelPosition: &quot;ABOVE&quot;,
+  totalCount: local!datasubset1.totalCount,/*if(rule!DSM_CheckIsNull(local!datasubset1.data),
+            1,local!datasubset1.totalCount),*/
+      columns: {
+
+        #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+          label:&quot;Sequence&quot;,
+            field: &quot;Sequence&quot;,
+            data: if(#&quot;_a-0000dd36-e022-8000-6ee0-010000010000_107048&quot;(local!datasubset1.data),
+            {},1+enumerate(count(local!datasubset1.data))),
+            alignment: &quot;LEFT&quot;
+          
+        
+        ),
+        #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+          label:&quot;User&quot;,
+        field: &quot;User&quot;,
+        data:apply(concat(_,&quot; &quot;,_),merge({index(local!datasubset2.data,&quot;firstName&quot;,{})},{index(local!datasubset2.data,&quot;lastName&quot;,{})}))
+        ),
+        #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+          label:&quot;Total Marks&quot;,
+          field: &quot;Total Marks&quot;,
+          data: index(local!datasubset1.data,&quot;totalMarks&quot;,{})
+        ),
+        #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+          label:&quot;Obtained Marks&quot;,
+          field: &quot;Obtained Marks&quot;,
+          data: index(local!datasubset1.data,&quot;obtainedMarks&quot;,{})
+        ),
+        #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+          label:&quot;Percentage&quot;,
+          field: &quot;Percentage&quot;,
+          data: if((index(local!datasubset1.data,&quot;obtainedMarks&quot;,{})=0),0,(index(local!datasubset1.data,&quot;obtainedMarks&quot;,{})/index(local!datasubset1.data,&quot;totalMarks&quot;,{}))*100)
+        )
+      },
+  value: local!pagingInfo1,
+  saveInto:local!pagingInfo1,
+  validations: {}
+))
+
+      },
+      secondColumnContents: {
+        #&quot;SYSTEM_SYSRULES_barChartField&quot;(
+          label:&quot;Result&quot;,
+          categories:{apply(concat(_,&quot; &quot;,_),merge({index(local!userDetails,&quot;firstName&quot;,{})},{index(local!userDetails,&quot;lastName&quot;,{})}))},
+          series:#&quot;SYSTEM_SYSRULES_chartSeries&quot;(
+            label:&quot;Marks&quot;,
+            data:{local!userResult.obtainedMarks}
+          ),
+          yAxisTitle:&quot;Marks Obtained&quot;,
+          xAxisTitle:&quot;User&quot;,
+          showDataLabels:true,
+          showAsPercentage:true
+        )}
+    )
+    
+  },
+  secondColumnContents: {}
+)))</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

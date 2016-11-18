@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dataStoreHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <dataStore>
+        <uuid>_a-0000dce9-678b-8000-6ee0-010000010000_102087</uuid>
+        <name>ST_DATASTORE</name>
+        <description>surbhi training data store</description>
+        <dataSourceKey>jdbc/T_MSSqlDS</dataSourceKey>
+        <adaptingExplicitSqlNames>false</adaptingExplicitSqlNames>
+        <autoUpdateSchema>false</autoUpdateSchema>
+        <entities>
+            <entity>
+                <uuid>d4c1c9e5-be4e-4388-a910-d9b3d58a880b</uuid>
+                <name>FirstDataType</name>
+                <type>{urn:com:appian:types}FirstDataType</type>
+            </entity>
+            <entity>
+                <uuid>30074330-6d96-417c-968f-55720fa9477e</uuid>
+                <name>Editable_Grid_Data_Type</name>
+                <type>{urn:com:appian:types}Editable_Grid_Data_Type</type>
+            </entity>
+            <entity>
+                <uuid>9d8dfd58-7f31-44b8-bce7-def3feac9308</uuid>
+                <name>ST_First_Project_MCQ_DataType</name>
+                <type>{urn:com:appian:types}ST_First_Project_MCQ_DataType</type>
+            </entity>
+            <entity>
+                <uuid>b4d23b88-121b-4c74-825e-19d2c03afdb8</uuid>
+                <name>ST_First_Project_SurveyDetails</name>
+                <type>{urn:com:appian:types}ST_First_Project_SurveyDetails</type>
+            </entity>
+            <entity>
+                <uuid>1791ebc0-de85-4489-936f-2b2995383347</uuid>
+                <name>ST_First_Project_Question_CDT</name>
+                <type>{urn:com:appian:types}ST_First_Project_Question_CDT</type>
+            </entity>
+            <entity>
+                <uuid>5be29fd0-6388-4436-9282-7aca57171f6f</uuid>
+                <name>ST_First_Project_Answer</name>
+                <type>{urn:com:appian:types}ST_First_Project_Answer</type>
+            </entity>
+            <entity>
+                <uuid>b6d8907f-32f8-4667-a737-75d39c8af7d0</uuid>
+                <name>ST_First_Project_User_Details</name>
+                <type>{urn:com:appian:types}ST_First_Project_User_Details</type>
+            </entity>
+            <entity>
+                <uuid>d75b3742-1599-45cf-bd4d-8882ea68ae73</uuid>
+                <name>ST_First_Project_Result_DataType</name>
+                <type>{urn:com:appian:types}ST_First_Project_Result_DataType</type>
+            </entity>
+            <entity>
+                <uuid>5afd37ef-3ce4-4fa2-9009-016f2e9462c0</uuid>
+                <name>ST_First_Project_View_Average_ObtainedMarks</name>
+                <type>{urn:com:appian:types}ST_First_Project_View_Average_ObtainedMarks</type>
+            </entity>
+        </entities>
+    </dataStore>
+    <isPublished>true</isPublished>
+    <roleMap>
+        <role allowForAll="false" inherit="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="true" inherit="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</dataStoreHaul>
