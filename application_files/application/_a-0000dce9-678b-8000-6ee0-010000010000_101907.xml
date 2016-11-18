@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<applicationHaul xmlns:a="http://www.appian.com/ae/types/2009">
+<?xml version="1.0" encoding="UTF-8"?><applicationHaul xmlns:a="http://www.appian.com/ae/types/2009">
     <application>
         <name>SurbhiTraining</name>
         <uuid>_a-0000dce9-678b-8000-6ee0-010000010000_101907</uuid>
-        <description></description>
+        <description/>
         <parentUuid>SYSTEM_APPLICATIONS_ROOT</parentUuid>
         <visibility>
             <advertise>false</advertise>
@@ -230,7 +229,7 @@
             </action>
             <action>
                 <displayLabel>MasterAction</displayLabel>
-                <description></description>
+                <description/>
                 <processModelUuid>0006dd20-b0af-8000-6ee0-010000010000</processModelUuid>
                 <actionUuid>1d39f329-37c9-44a6-9671-3d92abc8fdf5</actionUuid>
             </action>
@@ -352,4 +351,4 @@
             </role>
         </contentRoleMap>
     </roleMap>
-</applicationHaul>
+</applicationHaul><!--updated on 2016-11-18T17:06:09.598-->
